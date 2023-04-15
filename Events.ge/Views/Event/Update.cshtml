@@ -1,0 +1,59 @@
+﻿@model EventResponseVM
+<form method="post" asp-action="Update" enctype="multipart/form-data">
+    <input asp-for="Id" hidden />
+    <input asp-for="ImageUrl" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="row pb-2">
+                    <h2 class="text-primary">Update Event</h2>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <div class="mb-3">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <p>Price: @Model.TicketPrice</p>
+                </div>
+                <div class="mb-3 col-6">
+                    <p>Tickets Left: @Model.TicketPrice</p>
+                </div>
+                <div class="mb-3 col-6">
+                    <p>Startdate: @Model.StartDate</p>
+                </div>
+                <div class="mb-3 col-6">
+                    <p>EndDate: @Model.EndDate</p>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ImageUrl"></label>
+                    <input type="file" id="uploadBox" name="file" class="form-control" />
+                </div>
+                <div class="col-12">
+
+                    <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                    <a asp-controller="Event" asp-action="UserEvents" class="btn btn-secondary" style="width:150px">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 pt-4">
+            <img src="@Model.ImageUrl"
+                 width="100%" style="bordered-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+    </div>
+
+</form>
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

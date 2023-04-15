@@ -1,0 +1,56 @@
+﻿@model EventRequestModel
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <input asp-for="ImageUrl" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="row pb-2">
+                    <h2 class="text-primary">Create Event</h2>
+                    <hr />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="StartDate"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="EndDate"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="TicketPrice"></label>
+                    <input asp-for="TicketPrice" class="form-control" />
+                    <span asp-validation-for="TicketPrice" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="NumberOfTickets"></label>
+                    <input asp-for="NumberOfTickets" class="form-control" />
+                    <span asp-validation-for="NumberOfTickets" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="file"></label>
+                    <input type="file" name="file" class="form-control" />
+                    @*<input type="file" id="uploadBox" name="file" class="form-control" />*@
+                </div>
+                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

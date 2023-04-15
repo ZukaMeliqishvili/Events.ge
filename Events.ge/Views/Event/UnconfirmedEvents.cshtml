@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EventResponseModel>
+
+<div class="row pb-3">
+    @foreach (var obj in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">
+                    <div class="card">
+                        <img src="@obj.ImageUrl" class="card-img-top rounded" style="height:310px" />
+                        <div class="card-body" style="height:250px">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-white">@obj.Title</p>
+                                <p class="card-title h5 text-white">Price: <b>@obj.TicketPrice.ToString("0.00")</b></p>
+                                <p class="card-title h5 text-white">Number Of Tickets <b>@obj.NumberOfTickets</b></p>
+                                <p class="card-title h5 text-white">EndDate <b>@obj.StartDate.ToString("dd.MM.yyyy:hh:mm tt")</b></p>
+                                <p class="card-title h5 text-white">StartDate <b>@obj.EndDate.ToString("dd.MM.yyyy:hh:mm tt")</b></p>
+                            </div>
+                            <div>
+                                <a asp-action="Confirm" asp-route-Id="@obj.Id" class="btn btn-primary form-control">
+                                    Confirm Event
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

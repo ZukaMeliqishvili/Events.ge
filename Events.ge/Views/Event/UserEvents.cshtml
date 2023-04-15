@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EventResponseModel>
+
+<div class="row pb-3">
+    @foreach (var obj in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">
+                    <div class="card">
+                        <img src="@obj.ImageUrl" class="card-img-top rounded" style="height:310px" />
+                        <div class="card-body" style="height:250px">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-white">@obj.Title</p>
+                                <p class="card-title h5 text-white">Price: <b>@obj.TicketPrice.ToString("0.00")</b></p>
+                                <p class="card-title h5 text-white">Number Of Tickets <b>@obj.NumberOfTickets</b></p>
+                                <p class="card-title h5 text-white">EndDate <b>@obj.StartDate.ToString("dd.MM.yyyy:hh:mm tt")</b></p>
+                                <p class="card-tite h5 text-white">StartDate <b>@obj.EndDate.ToString("dd.MM.yyyy:hh:mm tt")</b></p>
+                            </div>
+                            <div class="row col-12">
+
+                                @if (obj.IsConfirmed)
+                                {
+                                    <div class="col-6 text-success">
+                                        <h4>Approved</h4>
+                                    </div>
+                                }
+                                @if (!obj.IsConfirmed)
+                                {
+                                    <div class="col-6 text-warning">
+                                        <h4>Pending</h4>
+                                    </div>
+                                }
+                                @if (obj.ConfirmedAt.AddDays(obj.DaysForUpdate) > DateTime.Now)
+                                {
+                                    <div class="col-6">
+                                        <a asp-action="Update" asp-route-Id="@obj.Id" class="btn btn-primary form-control">
+                                            Edit
+                                        </a>
+                                    </div>
+
+                                }
+                                @if (!obj.IsConfirmed)
+                                {
+                                    <div class="col-6 top-150">
+                                        <a asp-action="Update" asp-route-Id="@obj.Id" class="btn btn-primary form-control">
+                                            Edit
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<UserResponseModel>
+
+<table class="table table-bodered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                UserName
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="40%">
+                    @obj.UserName
+                </td>
+                <td width="20%">
+                    @obj.Email
+                </td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="User" asp-action="MakeModerator" asp-route-id="@obj.Id"
+                           class="btn btn-danger mx-2">
+                            <i class="bi bi-plus-circle-fill"></i>Make Moderator
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
