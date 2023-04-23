@@ -10,8 +10,9 @@ namespace Application._Ticket
     public interface ITicketService
     {
         Task BookTicket(int eventId, string userId, CancellationToken cancellationToken);
+        Task BuyBooked(int id, string userId, CancellationToken cancellationToken);
         Task BuyTicket(int id, string userId, CancellationToken cancellationToken);
-        Task DeleteAsync(int id, CancellationToken cancellationToken);
+        Task DeleteAsync(int id, string userId, CancellationToken cancellationToken);
         Task<List<Ticket>> GetAllAsync(CancellationToken cancellationToken);
         Task<List<Ticket>> GetUserTicketsAsync(CancellationToken cancellationToken, string userId);
         Task RemoveExpiredBookedTickets(CancellationToken cancellationToken);

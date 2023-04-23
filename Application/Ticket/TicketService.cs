@@ -49,6 +49,10 @@ namespace Application._Ticket
             {
                 throw new Exception("Event not found");
             }
+            if(@event.IsConfirmed==false)
+            {
+                throw new Exception("Event not found");
+            }
             if(@event.StartDate < DateTime.Now)
             {
                 throw new Exception("Event is already started");
@@ -74,12 +78,45 @@ namespace Application._Ticket
             await _unitOfWork.SaveAsync();
 
         }
-        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
+        public async Task DeleteAsync(int id,string userId, CancellationToken cancellationToken)
         {
+           var ticket = await _unitOfWork.Ticket.GetByIdAsync(cancellationToken, id);
+           if(ticket is null)
+           {
+                throw new Exception("Ticket not found");
+           }
+           if(ticket.UserId!= userId)
+           {
+                throw new Exception("There was some problem while deleting your ticket");
+           }
+           if(ticket.IsBought)
+           {
+                throw new Exception("You cant remove ticket which is already bought");
+           }
+            var @event = await _unitOfWork.Event.GetByIdAsync(cancellationToken, ticket.EventId);
+            ++@event.NumberOfTickets;
+
             await _unitOfWork.Ticket.DeleteAsync(cancellationToken, id);
             await _unitOfWork.SaveAsync();
         }
-
+        public async Task BuyBooked(int id,string userId, CancellationToken cancellationToken)
+        {
+            var ticket = await _unitOfWork.Ticket.GetByIdAsync(cancellationToken, id);
+            if (ticket is null)
+            {
+                throw new Exception("Ticket not found");
+            }
+            if (ticket.UserId != userId)
+            {
+                throw new Exception("There has been some problem while buying ticket");
+            }
+            if(ticket.IsBought)
+            {
+                throw new Exception("Ticket is already bought");
+            }
+            ticket.IsBought = true;
+            await _unitOfWork.SaveAsync();
+        }
         public async Task<List<Ticket>> GetAllAsync(CancellationToken cancellationToken)
         {
             List<Ticket> tickets = await _unitOfWork.Ticket.GetAllAsync(cancellationToken);

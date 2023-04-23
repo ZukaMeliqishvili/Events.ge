@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Ticket>
+
+<div class="row pb-3">
+    @foreach (var obj in Model)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">
+                    <div class="card">
+                        <img src="@obj.Event.ImageUrl" class="card-img-top rounded" style="height:310px" />
+                        <div class="card-body" style="height:200px">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-white">@obj.Event.Title</p>
+                                <p class="card-title h5 text-white">Price: <b>@obj.Event.TicketPrice.ToString("0.00")</b></p>
+                            </div>
+                            <div div class="pl-1">
+                                @if(!obj.IsBought)
+                                {
+                                    <div class="col-12 text-warning">
+                                        <h4>Booking expiring at: @obj.BookedTill.ToString("dd.MM.yyyy:hh:mm tt")</h4>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a class="btn btn-success" style="width:100%" asp-action="BuyBooked" asp-route-Id="@obj.Id" class="btn btn-primary form-control">
+                                                    Buy
+                                                </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a class="btn btn-danger" style="width:100%" asp-action="Remove" asp-route-Id="@obj.Id" class="btn btn-primary form-control">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                }
+                                @if(obj.IsBought)
+                                {
+                                    <div class="col-6 text-success">
+                                        <h4>Bought</h4>
+                                    </div>
+                                }
+                            </div>
+                            <div class="pt-md-1">
+                                <a asp-action="Details" asp-controller="Home" asp-route-Id="@obj.Event.Id" class="btn btn-primary form-control">View Event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

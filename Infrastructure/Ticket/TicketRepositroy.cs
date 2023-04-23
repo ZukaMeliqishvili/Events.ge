@@ -32,7 +32,7 @@ namespace Infrastructure._Ticket
         }
         public async Task<List<Ticket>> GetUserTickets(CancellationToken cancellationToken,string userId)
         {
-            var tickets = _db.Tickets.Where(x => x.UserId == userId);
+           var tickets = _db.Tickets.Where(x => x.UserId == userId).Include(x=>x.Event);
            return await tickets.ToListAsync();
         }
         public void RemoveRange(List<Ticket> bookedTickets)

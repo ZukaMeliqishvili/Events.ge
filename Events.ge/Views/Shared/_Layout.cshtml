@@ -33,6 +33,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="UserEvents">My Events</a>
                             </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Ticket" asp-action="GetUserTickets">My Tickets</a>
+                            </li>
                         }@if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                         {
                             <li class="nav-item">

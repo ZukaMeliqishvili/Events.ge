@@ -1,10 +1,12 @@
 ﻿using Application._Event;
 using Application._Ticket;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Events.ge.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly ITicketService _ticketService;
@@ -44,6 +46,39 @@ namespace Events.ge.Controllers
                 TempData["error"] = ex.Message;
                 return RedirectToAction("Details", "Home", new { id = id });
             }
+        }
+        public async Task<IActionResult> GetUserTickets(CancellationToken cancellationToken)
+        {
+            var tickets = await _ticketService.GetUserTicketsAsync(cancellationToken, userId);
+            return View("UserTickets",tickets);
+        }
+        public async Task<IActionResult> Remove(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _ticketService.DeleteAsync(id, userId, cancellationToken);
+                TempData["success"] = "Booking has been removed successfully";
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+            return RedirectToAction(nameof(GetUserTickets));
+
+
+        }
+        public async Task<IActionResult> BuyBooked(int id,CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _ticketService.BuyBooked(id, userId, cancellationToken);
+                TempData["success"] = "Ticket Has been bought successfully";
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+            }
+            return RedirectToAction(nameof(GetUserTickets));
         }
     }
 }
