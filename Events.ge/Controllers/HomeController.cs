@@ -3,6 +3,7 @@ using Events.ge.Models;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace Events.ge.Controllers
 {
@@ -10,17 +11,20 @@ namespace Events.ge.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IEventService _eventService;
-        public HomeController(ILogger<HomeController> logger, IEventService eventService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public HomeController(ILogger<HomeController> logger, IEventService eventService, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _eventService = eventService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(CancellationToken cancellationToken,int? page = 1)
         {
             var events = await _eventService.GetAllConfirmedEventsAsync(cancellationToken);
             var model = events.Adapt<List<EventVM>>();
-            return View(model);
+            int pageNumber = page ?? 1;
+            return View(model.ToPagedList(pageNumber,8));
         }
         public async Task<IActionResult> Details(CancellationToken cancellationToken, int id)
         {

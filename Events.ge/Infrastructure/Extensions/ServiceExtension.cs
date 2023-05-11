@@ -13,6 +13,7 @@ namespace Events.ge.Infrastructure.Extensions
     {
         public static void AddServices(this IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IUserService, UserService>();

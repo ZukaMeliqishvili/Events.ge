@@ -3,6 +3,7 @@ using Application._Ticket;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace Events.ge.Controllers
 {
@@ -47,10 +48,13 @@ namespace Events.ge.Controllers
                 return RedirectToAction("Details", "Home", new { id = id });
             }
         }
-        public async Task<IActionResult> GetUserTickets(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUserTickets(CancellationToken cancellationToken,int? page =1)
         {
             var tickets = await _ticketService.GetUserTicketsAsync(cancellationToken, userId);
-            return View("UserTickets",tickets);
+            int pageNumber = page ?? 1;
+            //ViewBag.Tickets = tickets.ToPagedList(pageNumber, 8);
+            //return View();
+            return View("UserTickets", tickets.ToPagedList(pageNumber, 8));
         }
         public async Task<IActionResult> Remove(int id, CancellationToken cancellationToken)
         {
