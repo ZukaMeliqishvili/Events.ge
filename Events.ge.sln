@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTest", "ServiceTest\ServiceTest.csproj", "{240EF900-830C-4882-B3E1-C64A2D9267EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events.Ge.API", "Events.Ge.API\Events.Ge.API.csproj", "{883E3BBF-415B-46BF-A66A-7B3C766F4079}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{240EF900-830C-4882-B3E1-C64A2D9267EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{240EF900-830C-4882-B3E1-C64A2D9267EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{240EF900-830C-4882-B3E1-C64A2D9267EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883E3BBF-415B-46BF-A66A-7B3C766F4079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{883E3BBF-415B-46BF-A66A-7B3C766F4079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{883E3BBF-415B-46BF-A66A-7B3C766F4079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{883E3BBF-415B-46BF-A66A-7B3C766F4079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +93,7 @@ Global
 		{6DFC935C-3792-43CF-80EA-18B81D80188C} = {C736B531-D643-44A7-A8A3-720C06E0165E}
 		{C9F7D10B-0AE8-4D60-9384-59265AAEB1D0} = {47D13A39-E59D-465C-AA8C-6C23DAC97630}
 		{240EF900-830C-4882-B3E1-C64A2D9267EA} = {C9F7D10B-0AE8-4D60-9384-59265AAEB1D0}
+		{883E3BBF-415B-46BF-A66A-7B3C766F4079} = {80A05282-A5F7-4FA6-82A4-5B619A0E7DF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B257340-9FC4-40FA-87C9-885901DCE199}

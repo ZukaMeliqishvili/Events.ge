@@ -3,12 +3,7 @@ using Domain.User;
 using Infrastructure;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.User
 {
@@ -16,10 +11,12 @@ namespace Application.User
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<IdentityUser> _userManager;
-        public UserService(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public UserService(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         public async Task<List<UserResponseModel>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -58,5 +55,32 @@ namespace Application.User
             var users = await _userManager.GetUsersInRoleAsync("User");
             return users.Adapt<List<UserResponseModel>>();
         }
+        public async Task Regiseter(UserRegisterModel model, CancellationToken cancellationToken)
+        {
+            bool isUnique = await _unitOfWork.User.Exists(cancellationToken, x => x.UserName == model.UserName || x.Email == model.Email);
+            if (isUnique)
+                throw new Exception("User is already registered by given username");
+            var applicationUser = new ApplicationUser();
+            applicationUser.UserName = model.UserName;
+            applicationUser.Email = model.Email;
+            var result = await _userManager.CreateAsync(applicationUser, model.Password);
+            if (!result.Succeeded)
+            {
+                throw new Exception("There was some problem with registering your account");
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(applicationUser, "User");
+            }
+        }
+        public async Task<string> Login(UserloginModel model, CancellationToken cancellationToken)
+        {
+            SignInResult result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
+            if (!result.Succeeded)
+                throw new Exception("Invalid login attempt");
+            IdentityUser user = await _userManager.FindByNameAsync(model.Username);
+            return user.Id;
+        }
+
     }
 }
