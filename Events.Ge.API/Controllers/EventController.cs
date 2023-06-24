@@ -2,7 +2,6 @@
 using Application._Event.Model.Request;
 using Application._Event.Model.Response;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 

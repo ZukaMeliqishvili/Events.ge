@@ -1,7 +1,6 @@
 ﻿using Domain._Ticket;
 using Domain.Events;
 using Infrastructure;
-using Microsoft.Extensions.Logging;
 
 namespace Application._Ticket
 {

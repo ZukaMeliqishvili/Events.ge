@@ -26,7 +26,7 @@ namespace Application.User
 
         public async Task<UserResponseModel> GetAsync(CancellationToken cancellationToken, string userId)
         {
-            ApplicationUser user = await this._unitOfWork.User.GetByIdAsync(cancellationToken, userId);
+            ApplicationUser user = await _unitOfWork.User.GetByIdAsync(cancellationToken, userId);
             if (user is null)
             {
                 throw new Exception("User not found");

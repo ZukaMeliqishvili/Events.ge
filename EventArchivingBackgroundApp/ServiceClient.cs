@@ -24,7 +24,7 @@ namespace EventArchivingBackgroundApp
             _ticketService = ticketService;
         }
 
-        public async Task RemoveExpiredBookings(CancellationToken cancellationToken = default)
+        public async Task MoveEventsToArchive(CancellationToken cancellationToken = default)
         {
             await _eventService.MoveEventsToArchive(cancellationToken);
         }

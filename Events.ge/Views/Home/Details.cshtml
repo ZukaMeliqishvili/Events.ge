@@ -8,8 +8,8 @@
             </div>
             <div class="col-12 col-md-6 text-end pt-4">
                 <span class="badge bg-success pt-2" style="height:30px; color:honeydew;">
-                    Event Time: @Model.StartDate.ToString("dd.MM.yyyy:hh:mm tt tt")
-                    -  @Model.EndDate.ToString("dd:MM:yyyy,hh:mm tt")
+                    @Model.StartDate.ToString("dd.MM.yyyy:hh")
+                    -  @Model.EndDate.ToString("dd.MM:yyyy:hh")
                 </span>
             </div>
         </div>
@@ -41,8 +41,8 @@
             <div class="row">
                 @if (Model.StartDate > DateTime.Now)
                 {
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                    @*@if (User.Identity.IsAuthenticated)
+                    {*@
                         @if (Model.NumberOfTickets > 0)
                         {
                             <div class="row">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         }
-                    }
+                    @*}*@
                 }
                 <div class="col-12 col-md-12 pb-1">
                     <a class="btn btn-danger form-control " style="height:50px;" asp-action="Index">Back to List</a>

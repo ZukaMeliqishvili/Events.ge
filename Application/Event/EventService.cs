@@ -32,7 +32,7 @@ namespace Application._Event
         public async Task<List<EventResponseModel>> GetAllConfirmedEventsAsync(
           CancellationToken cancellationToken)
         {
-            List<Event> events = await this._unitOfWork.Event.GetAllActiveEvents(cancellationToken);
+            List<Event> events = await _unitOfWork.Event.GetAllActiveEvents(cancellationToken);
             List<EventResponseModel> confirmedEventsAsync = events.Adapt<List<EventResponseModel>>();
             return confirmedEventsAsync;
         }

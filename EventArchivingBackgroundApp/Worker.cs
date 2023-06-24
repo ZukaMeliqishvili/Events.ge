@@ -22,7 +22,7 @@ namespace EventArchivingBackgroundApp
                     {
                         var service = scope.ServiceProvider.GetRequiredService<ServiceClient>();
 
-                        await service.RemoveExpiredBookings();
+                        await service.MoveEventsToArchive();
                     }
                 }
                 catch (Exception ex)
